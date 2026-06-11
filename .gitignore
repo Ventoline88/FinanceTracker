@@ -1,0 +1,27 @@
+# Visual Studio
+.vs/
+
+# .NET build output
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+
+# Logs
+*.log
+
+# Node.js
+node_modules/
+
+# Frontend build output
+dist/
+
+# Environment variables
+.env
+.env.local
+
+# OS files
+.DS_Store
+Thumbs.db
