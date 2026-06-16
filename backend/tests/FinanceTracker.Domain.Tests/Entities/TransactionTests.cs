@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FinanceTracker.Domain.Entities;
+using FinanceTracker.Domain.Enums;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,24 +8,47 @@ namespace FinanceTracker.Domain.Tests.Entities
 {
     public class TransactionTests
     {
+        [Theory]
+        [InlineData(0)]
+        [InlineData(-1)]
+        [InlineData(-100)]
+        public void CreateTransaction_WithInvalidAmount_ShouldThrouwException(decimal amount)
+        {
+            // Arrange
+            var action = () => new Transaction(amount, Currency.SEK, TransactionType.Expense);
+
+            // Act & Assert
+            Assert.Throws<ArgumentException>(action);
+        }
+
         [Fact]
-        public void CreateTransaction_WithValidAmount_ShouldSucceed()
+        public void CreateTransaction_WithValidAmount_ShouldCreateTransaction()
         {
             // Arrange
             var amount = 100;
 
-            // Act & Assert
-            Assert.True(amount > 0);
+            // Act
+            var transaction = new Transaction(amount, Currency.SEK, TransactionType.Expense);
+
+            // Assert
+            Assert.Equal(amount, transaction.Amount);
         }
 
         [Fact]
-        public void CreateTransaction_WithZeroAmount_ShouldFail()
+        public void CreateTransaction_WithDescription_ShouldStoreDescription()
         {
             // Arrange
-            var amount = 0;
+            var description = "Groceries";
 
-            // Act & Assert
-            Assert.False(amount > 0);
+            // Act
+            var transaction = new Transaction(
+                500,
+                Currency.SEK,
+                TransactionType.Expense,
+                description);
+
+            // Assert
+            Assert.Equal(description, transaction.Description);
         }
     }
 }
