@@ -14,6 +14,8 @@ namespace FinanceTracker.Domain.Entities
         public Currency Currency { get; private set; }
         public TransactionType Type { get; private set; }
 
+        public const int MaxDescriptionLength = 200;
+
         public Transaction(
             decimal amount, 
             Currency currency, 
@@ -23,7 +25,7 @@ namespace FinanceTracker.Domain.Entities
             if(amount <= 0)
             {
                 throw new ArgumentException(
-                    "Amount must be greater than zero",
+                    "Amount must be greater than zero.",
                     nameof(amount));
             }
 
@@ -40,7 +42,14 @@ namespace FinanceTracker.Domain.Entities
             if(string.IsNullOrWhiteSpace(description))
             {
                 throw new ArgumentException(
-                    "Description cannot be empty",
+                    "Description cannot be empty.",
+                    nameof(description));
+            }
+
+            if(description.Length > MaxDescriptionLength)
+            {
+                throw new ArgumentException(
+                    $"Description cannot exceed {MaxDescriptionLength} characters.",
                     nameof(description));
             }
 

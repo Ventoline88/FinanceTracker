@@ -84,5 +84,23 @@ namespace FinanceTracker.Domain.Tests.Entities
             // Assert
             Assert.Throws<ArgumentException>(action);
         }
+
+        [Fact]
+        public void UpdateDescription_WithTooLongDescription_ShouldThrowException()
+        {
+            // Arrange
+            var transaction = new Transaction(
+                500,
+                Currency.SEK,
+                TransactionType.Expense);
+
+            var description = new string('A', Transaction.MaxDescriptionLength + 1);
+
+            // Act
+            var action = () => transaction.UpdateDescription(description);
+
+            // Assert
+            Assert.Throws<ArgumentException>(action);
+        }
     }
 }
