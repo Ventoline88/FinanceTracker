@@ -37,6 +37,13 @@ namespace FinanceTracker.Domain.Entities
 
         public void UpdateDescription(string description)
         {
+            if(string.IsNullOrWhiteSpace(description))
+            {
+                throw new ArgumentException(
+                    "Description cannot be empty",
+                    nameof(description));
+            }
+
             Description = description;
         }
     }
