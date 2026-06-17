@@ -34,5 +34,10 @@ namespace FinanceTracker.Domain.Entities
             Description = description;
             Date = DateOnly.FromDateTime(DateTime.Now);
         }
+
+        public void UpdateDescription(string description)
+        {
+            Description = description;
+        }
     }
 }

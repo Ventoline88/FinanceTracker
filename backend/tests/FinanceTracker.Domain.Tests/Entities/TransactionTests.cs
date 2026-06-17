@@ -50,5 +50,23 @@ namespace FinanceTracker.Domain.Tests.Entities
             // Assert
             Assert.Equal(description, transaction.Description);
         }
+
+        [Fact]
+        public void UpdateDescription_WithValidDescription_ShouldUpdateDescription()
+        {
+            // Arrange
+            var transaction = new Transaction(
+                500,
+                Currency.SEK,
+                TransactionType.Expense);
+
+            var newDescription = "Groceries";
+
+            // Act
+            transaction.UpdateDescription(newDescription);
+
+            // Assert
+            Assert.Equal(newDescription, transaction.Description);
+        }
     }
 }
