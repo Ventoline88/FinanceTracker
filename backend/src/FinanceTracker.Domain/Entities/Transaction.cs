@@ -7,14 +7,14 @@ namespace FinanceTracker.Domain.Entities
 {
     public class Transaction
     {
+        public const int MaxDescriptionLength = 200;
+
         public Guid Id { get; private set; }
         public decimal Amount { get; private set; }
         public string Description { get; private set; } = string.Empty;
         public DateOnly Date { get; private set; }
         public Currency Currency { get; private set; }
         public TransactionType Type { get; private set; }
-
-        public const int MaxDescriptionLength = 200;
 
         public Transaction(
             decimal amount, 
