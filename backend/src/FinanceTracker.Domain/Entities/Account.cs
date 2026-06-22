@@ -13,6 +13,26 @@ namespace FinanceTracker.Domain.Entities
         public string Name { get; private set; }
         public Currency Currency { get; private set; }
         public List<Transaction> Transactions { get; private set; }
+        public decimal Balance
+        {
+            get
+            {
+                decimal balance = 0;
+
+                foreach(Transaction transaction in Transactions)
+                {
+                    if(transaction.Type == TransactionType.Income)
+                    {
+                        balance += transaction.Amount;
+                    } else
+                    {
+                        balance -= transaction.Amount;
+                    }
+                }
+
+                return balance;
+            }
+        }
 
         public Account(string name, Currency currency)
         {

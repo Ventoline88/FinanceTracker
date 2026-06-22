@@ -107,5 +107,32 @@ namespace FinanceTracker.Domain.Tests.Entities
             // Assert
             Assert.Throws<ArgumentNullException>(action);
         }
+
+        [Fact]
+        public void Balance_WithIncomeAndExpenseTransactions_ShouldReturnCorrectBalance()
+        {
+            // Arrange
+            var account = new Account(
+                "Main Account",
+                Currency.SEK);
+
+            account.AddTransaction(
+                new Transaction(
+                    1000,
+                    Currency.SEK,
+                    TransactionType.Income));
+
+            account.AddTransaction(
+                new Transaction(
+                    200,
+                    Currency.SEK,
+                    TransactionType.Expense));
+
+            // Act
+            var balance = account.Balance;
+
+            // Assert
+            Assert.Equal(800, balance);
+        }
     }
 }
