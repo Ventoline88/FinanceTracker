@@ -39,6 +39,18 @@ namespace FinanceTracker.Domain.Entities
 
         public void AddTransaction(Transaction transaction)
         {
+            if(transaction is null)
+            {
+                throw new ArgumentNullException(nameof(transaction));
+            }
+
+            if(transaction.Currency != Currency)
+            {
+                throw new ArgumentException(
+                    "Transaction currency must match account currency",
+                    nameof(transaction));
+            }
+
             Transactions.Add(transaction);
         }
     }

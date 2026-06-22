@@ -72,5 +72,40 @@ namespace FinanceTracker.Domain.Tests.Entities
             // Assert
             Assert.Single(account.Transactions);
         }
+
+        [Fact]
+        public void AddTransaction_WithDifferentCurrency_ShouldThrowException()
+        {
+            // Arrange
+            var account = new Account(
+                "Main Account",
+                Currency.SEK);
+
+            var transaction = new Transaction(
+                100,
+                Currency.USD,
+                TransactionType.Income);
+
+            // Act
+            var action = () => account.AddTransaction(transaction);
+
+            // Assert
+            Assert.Throws<ArgumentException>(action);
+        }
+
+        [Fact]
+        public void AddTransaction_WithNullTransaction_ShouldThrowException()
+        {
+            // Arrange
+            var account = new Account(
+                "Main Account",
+                Currency.SEK);
+
+            // Act
+            var action = () => account.AddTransaction(null!);
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(action);
+        }
     }
 }
