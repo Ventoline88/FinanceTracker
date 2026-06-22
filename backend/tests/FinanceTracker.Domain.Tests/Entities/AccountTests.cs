@@ -52,5 +52,25 @@ namespace FinanceTracker.Domain.Tests.Entities
             // Assert
             Assert.Throws<ArgumentException>(action);
         }
+
+        [Fact]
+        public void AddTransaction_ShouldAddTransactionToAccount()
+        {
+            // Arrange
+            var account = new Account(
+                "Main Account",
+                Currency.SEK);
+
+            var transaction = new Transaction(
+                1000,
+                Currency.SEK,
+                TransactionType.Income);
+
+            // Act
+            account.AddTransaction(transaction);
+
+            // Assert
+            Assert.Single(account.Transactions);
+        }
     }
 }

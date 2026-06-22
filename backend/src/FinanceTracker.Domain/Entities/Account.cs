@@ -12,6 +12,7 @@ namespace FinanceTracker.Domain.Entities
         public Guid Id { get; private set; }
         public string Name { get; private set; }
         public Currency Currency { get; private set; }
+        public List<Transaction> Transactions { get; private set; }
 
         public Account(string name, Currency currency)
         {
@@ -32,6 +33,13 @@ namespace FinanceTracker.Domain.Entities
             Id = Guid.NewGuid();
             Name = name;
             Currency = currency;
+
+            Transactions = new List<Transaction>();
+        }
+
+        public void AddTransaction(Transaction transaction)
+        {
+            Transactions.Add(transaction);
         }
     }
 }
