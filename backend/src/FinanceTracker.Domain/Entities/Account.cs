@@ -9,10 +9,13 @@ namespace FinanceTracker.Domain.Entities
     {
         public const int MaxNameLength = 50;
 
+        private readonly List<Transaction> _transactions = [];
+
         public Guid Id { get; private set; }
         public string Name { get; private set; }
         public Currency Currency { get; private set; }
-        public List<Transaction> Transactions { get; private set; }
+        public IReadOnlyCollection<Transaction> Transactions
+            => _transactions;
         public decimal Balance
         {
             get
@@ -53,8 +56,6 @@ namespace FinanceTracker.Domain.Entities
             Id = Guid.NewGuid();
             Name = name;
             Currency = currency;
-
-            Transactions = new List<Transaction>();
         }
 
         public void AddTransaction(Transaction transaction)
@@ -71,7 +72,7 @@ namespace FinanceTracker.Domain.Entities
                     nameof(transaction));
             }
 
-            Transactions.Add(transaction);
+            _transactions.Add(transaction);
         }
 
         public void RemoveTransaction(Guid transactionId)
@@ -86,7 +87,7 @@ namespace FinanceTracker.Domain.Entities
                     nameof(transactionId));
             }
 
-            Transactions.Remove(transaction);
+            _transactions.Remove(transaction);
         }
     }
 }
