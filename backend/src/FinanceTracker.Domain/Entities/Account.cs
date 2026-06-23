@@ -73,5 +73,20 @@ namespace FinanceTracker.Domain.Entities
 
             Transactions.Add(transaction);
         }
+
+        public void RemoveTransaction(Guid transactionId)
+        {
+            var transaction = Transactions.FirstOrDefault(
+                t => t.Id == transactionId);
+
+            if(transaction is null)
+            {
+                throw new ArgumentException(
+                    "Transaction not found",
+                    nameof(transactionId));
+            }
+
+            Transactions.Remove(transaction);
+        }
     }
 }

@@ -134,5 +134,57 @@ namespace FinanceTracker.Domain.Tests.Entities
             // Assert
             Assert.Equal(800, balance);
         }
+
+        [Fact]
+        public void RemoveTransaction_WithExistingTransaction_ShouldRemoveTransaction()
+        {
+            // Arrange
+            var account = new Account(
+                "Main Account",
+                Currency.SEK);
+
+            var transaction = new Transaction(
+                100,
+                Currency.SEK,
+                TransactionType.Expense);
+
+            account.AddTransaction(transaction);
+
+            // Act
+            account.RemoveTransaction(transaction.Id);
+
+            // Assert
+            Assert.Empty(account.Transactions);
+        }
+
+        [Fact]
+        public void RemoveTransaction_WithNonExistingTransaction_ShouldThrowException()
+        {
+            // Arrange
+            var account = new Account(
+                "Main Account",
+                Currency.SEK);
+
+            // Act
+            var action = () => account.RemoveTransaction(Guid.NewGuid());
+
+            // Assert
+            Assert.Throws<ArgumentException>(action);
+        }
+
+        [Fact]
+        public void Transactions_ShouldBeReadOnly()
+        {
+            // Arrange
+            var account = new Account(
+                "Main Account",
+                Currency.SEK);
+
+            // Act
+            var transactions = account.Transactions;
+
+            // Assert
+            Assert.IsAssignableFrom<IReadOnlyCollection<Transaction>>(transactions);
+        }
     }
 }
