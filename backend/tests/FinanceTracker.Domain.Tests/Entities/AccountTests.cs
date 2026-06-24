@@ -204,7 +204,24 @@ namespace FinanceTracker.Domain.Tests.Entities
             // Assert
             Assert.Equal(
                 "Used for everyday expenses",
-                account.Desciption);
+                account.Description);
+        }
+
+        [Theory]
+        [InlineData("")]
+        [InlineData(" ")]
+        [InlineData("     ")]
+        public void Constructor_WithInvalidDescription_ShouldThrowException(
+            string description)
+        {
+            // Act
+            var action = () => new Account(
+                "Main Account",
+                Currency.SEK,
+                description);
+
+            // Assert
+            Assert.Throws<ArgumentException>(action);
         }
     }
 }

@@ -57,6 +57,14 @@ namespace FinanceTracker.Domain.Entities
                     nameof(name));
             }
 
+            if(description is not null &&
+                string.IsNullOrWhiteSpace(description))
+            {
+                throw new ArgumentException(
+                    "Description cannot be empty or whitespace.",
+                    nameof(description));
+            }
+
             Id = Guid.NewGuid();
             Name = name;
             Currency = currency;
