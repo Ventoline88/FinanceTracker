@@ -36,8 +36,12 @@ namespace FinanceTracker.Domain.Entities
                 return balance;
             }
         }
+        public string? Description { get; private set; }
 
-        public Account(string name, Currency currency)
+        public Account(
+            string name, 
+            Currency currency,
+            string? description = null)
         {
             if(string.IsNullOrEmpty(name))
             {
@@ -56,6 +60,7 @@ namespace FinanceTracker.Domain.Entities
             Id = Guid.NewGuid();
             Name = name;
             Currency = currency;
+            Description = description;
         }
 
         public void AddTransaction(Transaction transaction)

@@ -15,7 +15,11 @@ namespace FinanceTracker.Domain.Tests.Entities
         public void CreateTransaction_WithInvalidAmount_ShouldThrouwException(decimal amount)
         {
             // Arrange
-            var action = () => new Transaction(amount, Currency.SEK, TransactionType.Expense);
+            var action = () => new Transaction(
+                amount, 
+                Currency.SEK, 
+                TransactionType.Expense, 
+                TransactionCategory.Other);
 
             // Act & Assert
             Assert.Throws<ArgumentException>(action);
@@ -28,7 +32,11 @@ namespace FinanceTracker.Domain.Tests.Entities
             var amount = 100;
 
             // Act
-            var transaction = new Transaction(amount, Currency.SEK, TransactionType.Expense);
+            var transaction = new Transaction(
+                amount, 
+                Currency.SEK, 
+                TransactionType.Expense,
+                TransactionCategory.Other);
 
             // Assert
             Assert.Equal(amount, transaction.Amount);
@@ -45,6 +53,7 @@ namespace FinanceTracker.Domain.Tests.Entities
                 500,
                 Currency.SEK,
                 TransactionType.Expense,
+                TransactionCategory.Food,
                 description);
 
             // Assert
@@ -58,7 +67,8 @@ namespace FinanceTracker.Domain.Tests.Entities
             var transaction = new Transaction(
                 500,
                 Currency.SEK,
-                TransactionType.Expense);
+                TransactionType.Expense,
+                TransactionCategory.Other);
 
             var newDescription = "Groceries";
 
@@ -76,7 +86,8 @@ namespace FinanceTracker.Domain.Tests.Entities
             var transaction = new Transaction(
                 500,
                 Currency.SEK,
-                TransactionType.Expense);
+                TransactionType.Expense,
+                TransactionCategory.Other);
 
             // Act
             var action = () => transaction.UpdateDescription("");
@@ -92,7 +103,8 @@ namespace FinanceTracker.Domain.Tests.Entities
             var transaction = new Transaction(
                 500,
                 Currency.SEK,
-                TransactionType.Expense);
+                TransactionType.Expense,
+                TransactionCategory.Other);
 
             var description = new string('A', Transaction.MaxDescriptionLength + 1);
 
@@ -101,6 +113,22 @@ namespace FinanceTracker.Domain.Tests.Entities
 
             // Assert
             Assert.Throws<ArgumentException>(action);
+        }
+
+        [Fact]
+        public void Constructor_ShouldSetCategory()
+        {
+            // Arrange & Act
+            var transaction = new Transaction(
+                100,
+                Currency.SEK,
+                TransactionType.Expense,
+                TransactionCategory.Food);
+
+            // Assert
+            Assert.Equal(
+                TransactionCategory.Food,
+                transaction.Category);
         }
     }
 }

@@ -15,11 +15,13 @@ namespace FinanceTracker.Domain.Entities
         public DateOnly Date { get; private set; }
         public Currency Currency { get; private set; }
         public TransactionType Type { get; private set; }
+        public TransactionCategory Category { get; private set; }
 
         public Transaction(
             decimal amount, 
             Currency currency, 
             TransactionType type, 
+            TransactionCategory category,
             string description = "")
         {
             if(amount <= 0)
@@ -33,6 +35,7 @@ namespace FinanceTracker.Domain.Entities
             Amount = amount;
             Currency = currency;
             Type = type;
+            Category = category;
             Description = description;
             Date = DateOnly.FromDateTime(DateTime.Now);
         }

@@ -64,7 +64,8 @@ namespace FinanceTracker.Domain.Tests.Entities
             var transaction = new Transaction(
                 1000,
                 Currency.SEK,
-                TransactionType.Income);
+                TransactionType.Income,
+                TransactionCategory.Other);
 
             // Act
             account.AddTransaction(transaction);
@@ -84,7 +85,8 @@ namespace FinanceTracker.Domain.Tests.Entities
             var transaction = new Transaction(
                 100,
                 Currency.USD,
-                TransactionType.Income);
+                TransactionType.Income,
+                TransactionCategory.Other);
 
             // Act
             var action = () => account.AddTransaction(transaction);
@@ -120,13 +122,15 @@ namespace FinanceTracker.Domain.Tests.Entities
                 new Transaction(
                     1000,
                     Currency.SEK,
-                    TransactionType.Income));
+                    TransactionType.Income,
+                    TransactionCategory.Other));
 
             account.AddTransaction(
                 new Transaction(
                     200,
                     Currency.SEK,
-                    TransactionType.Expense));
+                    TransactionType.Expense,
+                    TransactionCategory.Other));
 
             // Act
             var balance = account.Balance;
@@ -146,7 +150,8 @@ namespace FinanceTracker.Domain.Tests.Entities
             var transaction = new Transaction(
                 100,
                 Currency.SEK,
-                TransactionType.Expense);
+                TransactionType.Expense,
+                TransactionCategory.Other);
 
             account.AddTransaction(transaction);
 
@@ -185,6 +190,21 @@ namespace FinanceTracker.Domain.Tests.Entities
 
             // Assert
             Assert.IsAssignableFrom<IReadOnlyCollection<Transaction>>(transactions);
+        }
+
+        [Fact]
+        public void Constructor_WithDescription_ShouldSetDescription()
+        {
+            // Arrange & Act
+            var account = new Account(
+                "Main Account",
+                Currency.SEK,
+                "Used for everyday expenses");
+
+            // Assert
+            Assert.Equal(
+                "Used for everyday expenses",
+                account.Desciption);
         }
     }
 }
