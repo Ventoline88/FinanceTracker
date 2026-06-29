@@ -6,6 +6,7 @@
     <Project Path="src/FinanceTracker.Infrastructure/FinanceTracker.Infrastructure.csproj" />
   </Folder>
   <Folder Name="/tests/">
+    <Project Path="tests/FinanceTracker.Application.Tests/FinanceTracker.Application.Tests.csproj" />
     <Project Path="tests/FinanceTracker.Domain.Tests/FinanceTracker.Domain.Tests.csproj" />
   </Folder>
 </Solution>
