@@ -8,5 +8,6 @@ namespace FinanceTracker.Application.Abstractions
     public interface IAccountRepository
     {
         void Add(Account account);
+        Account? GetByName(string name);
     }
 }
