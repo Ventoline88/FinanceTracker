@@ -19,5 +19,10 @@ namespace FinanceTracker.Application.Tests.Fakes
         {
             return Accounts.FirstOrDefault(a => a.Name == name);
         }
+
+        public IReadOnlyCollection<Account> GetAll()
+        {
+            return Accounts;
+        }
     }
 }

@@ -9,5 +9,6 @@ namespace FinanceTracker.Application.Abstractions
     {
         void Add(Account account);
         Account? GetByName(string name);
+        IReadOnlyCollection<Account> GetAll();
     }
 }
